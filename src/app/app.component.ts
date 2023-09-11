@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Add, CountState } from './app.state';
+import { Add, Delete, CountState } from './app.state';
 
 @Component({
   selector: 'my-app',
   template: `
     <h1>Count is {{count$ | async}}</h1>
     <button (click)="onClick()">Click Me</button>
+    <br>
+    <button (click)="onClick2()">Delete Me</button>
   `
 })
 export class AppComponent  {
@@ -22,7 +24,7 @@ export class AppComponent  {
 
   onClick2()
   {
-    this.store.dispatch(new Add())
+    this.store.dispatch(new Delete())
 
   }
   

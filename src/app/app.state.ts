@@ -4,14 +4,47 @@ export class Add {
   static readonly type = 'Add';
 }
 
-@State<number>({
+export class Delete {
+  static readonly type = 'Delete';
+}
+
+class CountStateModel
+{
+  clicks : number;
+  payload: string;
+
+}
+
+@State<CountStateModel>({
   name: 'count',
-  defaults: 0
+  defaults: 
+  {
+    clicks: 0,
+    payload: ""
+  }
 })
 export class CountState {
   @Action(Add)
   add({ getState, setState }) {
     const state = getState();
-    setState(state + 1);
-  }
+    setState({
+      ...state,
+        clicks: state.clicks + 1,
+     }
+    )
+    };
+  
+
+  @Action(Delete)
+  delete({ getState, setState }) {
+    const state = getState();
+    setState({
+      ...state,
+        clicks: state.clicks - 1,
+     }
+    )
+    };
+  
+
+  
 }
