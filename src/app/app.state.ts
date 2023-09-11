@@ -1,4 +1,4 @@
-import { State, Action } from '@ngxs/store';
+import { State, Action, Selector } from '@ngxs/store';
 
 export class Add {
   static readonly type = 'Add';
@@ -8,7 +8,7 @@ export class Delete {
   static readonly type = 'Delete';
 }
 
-class CountStateModel
+export class CountStateModel
 {
   clicks : number;
   payload: string;
@@ -20,7 +20,7 @@ class CountStateModel
   defaults: 
   {
     clicks: 0,
-    payload: ""
+    payload: "PL: "
   }
 })
 export class CountState {
@@ -28,7 +28,7 @@ export class CountState {
   add({ getState, setState }) {
     const state = getState();
     setState({
-      ...state,
+        payload: state.payload + "a",
         clicks: state.clicks + 1,
      }
     )
@@ -39,12 +39,23 @@ export class CountState {
   delete({ getState, setState }) {
     const state = getState();
     setState({
-      ...state,
+        payload: state.payload + "d",
         clicks: state.clicks - 1,
      }
     )
     };
   
+    @Selector()
+     static clicks(state: CountStateModel) : number  {
+       return state.clicks;
+
+     }
+
+     @Selector()
+     static payload(state: CountStateModel) : string  {
+       return state.payload;
+
+     }
 
   
 }
